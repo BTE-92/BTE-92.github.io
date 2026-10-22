@@ -155,10 +155,11 @@ main{ padding: 0 max(24px, env(safe-area-inset-right,0px)) 80px max(0px); }
 .stat-row{
   margin-top:36px;
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   border:1px solid var(--line);
   border-radius:var(--radius);
   overflow:hidden;
+  max-width:460px;
 }
 .stat{
   padding:16px 18px;
@@ -216,7 +217,7 @@ main{ padding: 0 max(24px, env(safe-area-inset-right,0px)) 80px max(0px); }
 .project-links .inert:hover{ text-decoration:none; }
 
 /* skills */
-.skill-cols{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:28px; }
+.skill-cols{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; margin-top:28px; max-width:560px; }
 @media (max-width:640px){ .skill-cols{ grid-template-columns:1fr; } }
 .skill-col h4{
   font-family:'IBM Plex Mono'; font-size:0.72rem; letter-spacing:0.06em;
@@ -303,7 +304,6 @@ footer{
 
       <div class="stat-row">
         <div class="stat"><div class="n mono">160+</div><div class="l">endpoints implemented</div></div>
-        <div class="stat"><div class="n mono">70+</div><div class="l">binary patches shipped</div></div>
         <div class="stat"><div class="n mono">3</div><div class="l">platforms revived (iOS, Android & PC)</div></div>
       </div>
 
@@ -353,12 +353,6 @@ footer{
       <div class="eyebrow"><span class="num">§02</span><span>Skills</span><span class="rule"></span></div>
       <h2 style="font-size:1.75rem">Toolbox</h2>
       <div class="skill-cols">
-        <div class="skill-col">
-          <h4>Binary patching</h4>
-          <div class="skill"><span class="name">Mono.Cecil (IL rewriting)</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:85%"></i></span></div>
-          <div class="skill"><span class="name">Binary diffing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:70%"></i></span></div>
-          <div class="skill"><span class="name">ARM / Thumb-2 assembly</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:62%"></i></span></div>
-        </div>
         <div class="skill-col">
           <h4>Server engineering</h4>
           <div class="skill"><span class="name">Protocol reconstruction</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
