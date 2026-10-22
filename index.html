@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BTE</title>
-<meta name="description" content="Reverse engineer & backend developer from France: game preservation, protocol reconstruction, binary patching.">
+<meta name="description" content="Backend developer & binary patcher from France: game preservation, server engineering, binary patching.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -283,7 +283,7 @@ footer{
 <div class="shell">
   <aside class="rail">
     <div class="rail-top">
-      <div class="mark">BTE<span>_</span><small>Reverse engineer, France</small></div>
+      <div class="mark">BTE<span>_</span><small>Backend developer, France</small></div>
       <nav class="index-nav">
         <a href="#hero"><span class="num mono">§00</span> Intro</a>
         <a href="#work"><span class="num mono">§01</span> Projects</a>
@@ -297,14 +297,14 @@ footer{
   <main>
     <section class="section hero" id="hero">
       <div class="eyebrow"><span class="num">§00</span><span>Intro</span><span class="rule"></span></div>
-      <h1>I keep dead games running, one decompiled binary at a time.</h1>
-      <p class="role mono">Reverse engineer & backend developer, France</p>
-      <p class="lede">I'm a French developer who spends free time on the games whose servers studios switched off. When the backend goes dark, I decompile the client to figure out exactly what it still expects, then rebuild that backend from nothing. And when the client itself is missing a feature or a fix, I patch its compiled bytecode directly instead of waiting for a source that doesn't exist anymore.</p>
+      <h1>I keep dead games running, one rebuilt server and one patch at a time.</h1>
+      <p class="role mono">Backend developer & binary patcher, France</p>
+      <p class="lede">I'm a French developer who spends free time on the games whose servers studios switched off. I work from binaries that are already decompiled to rebuild the missing server from scratch, matching exactly what the client expects. And when the client itself needs a fix or a feature it never had, I patch its compiled bytecode directly, or build a working iOS version with Xcode when none exists.</p>
 
       <div class="stat-row">
-        <div class="stat"><div class="n mono">160+</div><div class="l">endpoints reverse-engineered</div></div>
+        <div class="stat"><div class="n mono">160+</div><div class="l">endpoints implemented</div></div>
         <div class="stat"><div class="n mono">70+</div><div class="l">binary patches shipped</div></div>
-        <div class="stat"><div class="n mono">2</div><div class="l">platforms revived (iOS & Android)</div></div>
+        <div class="stat"><div class="n mono">3</div><div class="l">platforms revived (iOS, Android & PC)</div></div>
       </div>
 
       <div class="cta-row">
@@ -324,7 +324,7 @@ footer{
             <h3>Server revival & binary patching</h3>
             <div class="project-meta mono">2026 · ONGOING</div>
           </div>
-          <p>The original C# server source for this mobile racer had been permanently deleted. I rebuilt it from zero by decompiling the production binary, got it compiling cleanly, and verified it byte-for-byte against the original with a differential test across dozens of live requests. From there I kept extending it: tournaments, a versus mode, and a custom UDP broadcast protocol so the app finds the server on any network without touching a phone's DNS. I also patched the Android client's compiled bytecode directly (IL rewriting) to restore development tooling the shipped build had stripped out, and to add a full in-game localization system the original never had.</p>
+          <p>The original C# server source for this mobile racer had been permanently deleted. Working from an already-decompiled copy of the production binary, I rebuilt it from zero, got it compiling cleanly, and verified it byte-for-byte against the original with a differential test across dozens of live requests. From there I kept extending it: tournaments, a versus mode, and a custom UDP broadcast protocol so the app finds the server on any network without touching a phone's DNS. I also patched the Android client's compiled bytecode directly (IL rewriting) to restore development tooling the shipped build had stripped out, and to add a full in-game localization system the original never had.</p>
           <div class="tag-row">
             <span class="tag">C# / .NET</span><span class="tag">SQLite</span><span class="tag">IL patching</span><span class="tag">Android</span><span class="tag">Decompilation</span>
           </div>
@@ -338,9 +338,9 @@ footer{
             <h3>Dead backend, reimplemented</h3>
             <div class="project-meta mono">2026 · PYTHON SERVER</div>
           </div>
-          <p>When a mobile game's backend shuts down, the client doesn't stop calling it. It just gets silence back. I audited every one of its ~160 endpoints straight from the decompiled client to work out which ones actually mattered (several turned out to be dead code the client never calls), then rebuilt a matching server in Python and SQLite covering login, teams, tournaments, ghost replays and level publishing. A small desktop admin panel on top lets me manage players and levels while it's running.</p>
+          <p>When a mobile game's backend shuts down, the client doesn't stop calling it. It just gets silence back. Working from an already-decompiled copy of the client, I worked out which of its ~160 endpoints actually mattered (several turned out to be dead code the client never calls), then rebuilt a matching server in Python and SQLite covering login, teams, tournaments, ghost replays and level publishing. A small desktop admin panel on top lets me manage players and levels while it's running.</p>
           <div class="tag-row">
-            <span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Reverse engineering</span><span class="tag">REST API</span>
+            <span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Protocol reconstruction</span><span class="tag">REST API</span>
           </div>
           <div class="project-links">
             <span class="inert">Source: private</span>
@@ -349,15 +349,29 @@ footer{
 
         <article class="project">
           <div class="project-head">
-            <h3>Reviving a 2018 Unity build for iOS</h3>
-            <div class="project-meta mono">2026 · iOS PORT</div>
+            <h3>What On Earth — offline revival</h3>
+            <div class="project-meta mono">2026 · SERVER + 3 PLATFORMS</div>
           </div>
-          <p>Cross-compiled an old Unity build to run natively on iOS and chased a crash that only showed up on 64-bit devices: the physics engine assumed a point was always double-precision, and arm64's calling convention broke that assumption and corrupted the vector math under the hood. Fixed the ABI mismatch, then hit a separate wall getting the result to install at all, solved by splitting the universal binary into two architecture-specific IPAs so each one could be signed for sideloading.</p>
+          <p>What On Earth is the earliest version of this mobile racer, long pulled from the app stores. I built the server it talks to from scratch, then put together a fully offline build that needs no server at all, playable on Android, iOS and PC. The iOS leg was its own fight: cross-compiling a 2018 Unity project and chasing a crash that only showed up on 64-bit devices, where the physics engine's assumption that a point was always double-precision broke under arm64's calling convention. Fixed that, then solved a separate code-signing wall by splitting the universal binary into two architecture-specific IPAs.</p>
           <div class="tag-row">
-            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">C</span><span class="tag">Physics engine</span>
+            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">Android</span><span class="tag">Server engineering</span><span class="tag">C</span>
           </div>
           <div class="project-links">
             <a href="https://github.com/BTE-92/WOE-Offline" target="_blank" rel="noopener">github.com/BTE-92/WOE-Offline</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-head">
+            <h3>BBRo — porting an offline mod to iOS</h3>
+            <div class="project-meta mono">2026 · iOS PORT</div>
+          </div>
+          <p>BBRo is a community-made offline mod of this mobile racer, originally built for Android only. I ported it to iOS: compiled it through Xcode, patched the same native physics plugin that needed fixing on the other iOS port, and shipped it as signed 32-bit, 64-bit and universal IPAs ready to sideload.</p>
+          <div class="tag-row">
+            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">C</span><span class="tag">Chipmunk Physics</span>
+          </div>
+          <div class="project-links">
+            <span class="inert">Source: private</span>
           </div>
         </article>
       </div>
@@ -368,22 +382,21 @@ footer{
       <h2 style="font-size:1.75rem">Toolbox</h2>
       <div class="skill-cols">
         <div class="skill-col">
-          <h4>Reverse engineering</h4>
-          <div class="skill"><span class="name">Decompilation (ILSpy, Ghidra)</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:90%"></i></span></div>
-          <div class="skill"><span class="name">Protocol reconstruction</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
+          <h4>Binary patching</h4>
+          <div class="skill"><span class="name">Mono.Cecil (IL rewriting)</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:85%"></i></span></div>
+          <div class="skill"><span class="name">Binary diffing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:70%"></i></span></div>
           <div class="skill"><span class="name">ARM / Thumb-2 assembly</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:62%"></i></span></div>
         </div>
         <div class="skill-col">
-          <h4>Low-level patching</h4>
-          <div class="skill"><span class="name">Mono.Cecil (IL rewriting)</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:85%"></i></span></div>
-          <div class="skill"><span class="name">Binary diffing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:70%"></i></span></div>
-          <div class="skill"><span class="name">Unity asset editing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:65%"></i></span></div>
-        </div>
-        <div class="skill-col">
-          <h4>Backend & builds</h4>
+          <h4>Server engineering</h4>
+          <div class="skill"><span class="name">Protocol reconstruction</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
           <div class="skill"><span class="name">C# / .NET</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
           <div class="skill"><span class="name">Python</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:86%"></i></span></div>
-          <div class="skill"><span class="name">Unity & Xcode builds</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:68%"></i></span></div>
+        </div>
+        <div class="skill-col">
+          <h4>Cross-platform builds</h4>
+          <div class="skill"><span class="name">Unity & Xcode builds</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:80%"></i></span></div>
+          <div class="skill"><span class="name">Unity asset editing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:65%"></i></span></div>
         </div>
       </div>
     </section>
@@ -401,19 +414,27 @@ footer{
           </div>
         </div>
         <div class="tl-item">
+          <div class="tl-date mono">2026 · WOE</div>
+          <div class="tl-body">
+            <h3>What On Earth — offline revival</h3>
+            <div class="org">Server + Android, iOS & PC builds</div>
+            <p>Built the server from scratch and shipped a fully offline build running on three platforms. Fixed a physics-engine ABI crash on 64-bit iOS devices and a code-signing dead end by splitting the binary in two.</p>
+          </div>
+        </div>
+        <div class="tl-item">
           <div class="tl-date mono">2026 · iOS</div>
           <div class="tl-body">
-            <h3>Reviving a 2018 Unity build for iOS</h3>
+            <h3>BBRo — porting an offline mod to iOS</h3>
             <div class="org">Cross-platform port</div>
-            <p>Got a 2018 Unity build running natively on iOS. Fixed a physics-engine ABI crash on 64-bit devices and a code-signing dead end by splitting the binary in two.</p>
+            <p>Ported a community Android-only offline mod to iOS through Xcode, with a native physics-plugin patch and signed 32-bit, 64-bit and universal IPAs.</p>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-date mono">2026 · PYTHON</div>
           <div class="tl-body">
             <h3>Dead backend, reimplemented</h3>
-            <div class="org">Reverse-engineered REST API</div>
-            <p>Reconstructed a shut-down mobile game's full backend from the decompiled client and shipped a small admin GUI to run it.</p>
+            <div class="org">Reconstructed REST API</div>
+            <p>Reconstructed a shut-down mobile game's full backend from an already-decompiled client and shipped a small admin GUI to run it.</p>
           </div>
         </div>
       </div>
