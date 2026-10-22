@@ -10,31 +10,6 @@
 <style>
 /* layout concept: a left-hand schematic index (§00–§04) runs the page like a spec sheet, collapsing to a top strip on narrow screens */
 :root{
-  --bg:#EEF0EA;
-  --surface:#E2E5DA;
-  --surface-2:#D7DBCC;
-  --fg:#1B2219;
-  --muted:#5B6355;
-  --accent:#B5792A;
-  --accent-fg:#FBF4E8;
-  --line:#C6CBB8;
-  --radius:2px;
-  font-size:16px;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#121611;
-    --surface:#1A1F17;
-    --surface-2:#232A1E;
-    --fg:#E8EAE0;
-    --muted:#9AA190;
-    --accent:#E0A94C;
-    --accent-fg:#1A1507;
-    --line:#333B2B;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"]{
   --bg:#121611;
   --surface:#1A1F17;
   --surface-2:#232A1E;
@@ -43,9 +18,10 @@
   --accent:#E0A94C;
   --accent-fg:#1A1507;
   --line:#333B2B;
+  --radius:2px;
   color-scheme: dark;
+  font-size:16px;
 }
-:root[data-theme="light"]{ color-scheme: light; }
 
 *{ box-sizing:border-box; }
 html{ background:var(--bg); }
@@ -135,25 +111,6 @@ button{ font-family:inherit; }
 }
 .index-nav a:hover{ color:var(--accent); text-decoration:none; }
 .index-nav .num{ color:var(--accent); }
-
-.rail-bottom{ display:flex; align-items:center; gap:12px; }
-
-.theme-toggle{
-  border:1px solid var(--line);
-  background:var(--surface);
-  color:var(--muted);
-  border-radius:999px;
-  padding:6px 6px;
-  display:inline-flex;
-  gap:2px;
-  cursor:pointer;
-}
-.theme-toggle button{
-  border:none; background:transparent; color:inherit;
-  font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase;
-  padding:5px 10px; border-radius:999px; cursor:pointer;
-}
-.theme-toggle button[aria-pressed="true"]{ background:var(--accent); color:var(--accent-fg); }
 
 /* ---- main column ---- */
 main{ padding: 0 max(24px, env(safe-area-inset-right,0px)) 80px max(0px); }
@@ -331,13 +288,6 @@ footer{
         <a href="#contact"><span class="num mono">§04</span> Contact</a>
       </nav>
     </div>
-    <div class="rail-bottom">
-      <div class="theme-toggle" role="group" aria-label="Theme">
-        <button type="button" id="theme-system" aria-pressed="true">Auto</button>
-        <button type="button" id="theme-light" aria-pressed="false">Light</button>
-        <button type="button" id="theme-dark" aria-pressed="false">Dark</button>
-      </div>
-    </div>
   </aside>
 
   <main>
@@ -473,15 +423,16 @@ footer{
         <div class="contact-row">
           <div>
             <div class="label">Discord</div>
-            <div class="value" id="email-value">baptistewi92</div>
+            <div class="value" id="discord-value">baptistewi92</div>
           </div>
-          <button class="copy-btn" id="copy-email" type="button">Copy</button>
+          <button class="copy-btn" data-copy-target="discord-value" type="button">Copy</button>
         </div>
         <div class="contact-row">
           <div>
             <div class="label">GitHub</div>
-            <div class="value">github.com/BTE-92</div>
+            <div class="value" id="github-value">github.com/BTE-92</div>
           </div>
+          <button class="copy-btn" data-copy-target="github-value" type="button">Copy</button>
         </div>
       </div>
     </section>
@@ -495,57 +446,33 @@ footer{
 
 <script>
 (function(){
-  var root = document.documentElement;
-  var buttons = {
-    system: document.getElementById('theme-system'),
-    light: document.getElementById('theme-light'),
-    dark: document.getElementById('theme-dark')
-  };
-  function setPressed(mode){
-    Object.keys(buttons).forEach(function(k){
-      buttons[k].setAttribute('aria-pressed', String(k === mode));
-    });
-  }
-  function apply(mode){
-    if(mode === 'system'){ root.removeAttribute('data-theme'); }
-    else{ root.setAttribute('data-theme', mode); }
-    setPressed(mode);
-    try{ localStorage.setItem('portfolio-theme', mode); }catch(e){}
-  }
-  var saved = 'system';
-  try{ saved = localStorage.getItem('portfolio-theme') || 'system'; }catch(e){}
-  apply(saved);
-  buttons.system.addEventListener('click', function(){ apply('system'); });
-  buttons.light.addEventListener('click', function(){ apply('light'); });
-  buttons.dark.addEventListener('click', function(){ apply('dark'); });
-
-  var copyBtn = document.getElementById('copy-email');
-  var emailEl = document.getElementById('email-value');
-  copyBtn.addEventListener('click', function(){
-    var text = emailEl.textContent;
-    function done(){
-      copyBtn.textContent = 'Copied';
-      copyBtn.setAttribute('data-copied', 'true');
-      setTimeout(function(){
-        copyBtn.textContent = 'Copy';
-        copyBtn.removeAttribute('data-copied');
-      }, 1800);
-    }
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done).catch(function(){
+  document.querySelectorAll('.copy-btn[data-copy-target]').forEach(function(copyBtn){
+    var valueEl = document.getElementById(copyBtn.getAttribute('data-copy-target'));
+    if(!valueEl) return;
+    copyBtn.addEventListener('click', function(){
+      var text = valueEl.textContent;
+      function done(){
+        copyBtn.textContent = 'Copied';
+        copyBtn.setAttribute('data-copied', 'true');
+        setTimeout(function(){
+          copyBtn.textContent = 'Copy';
+          copyBtn.removeAttribute('data-copied');
+        }, 1800);
+      }
+      function selectFallback(){
+        var range = document.createRange();
+        range.selectNodeContents(valueEl);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        done();
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done).catch(selectFallback);
+      } else {
         selectFallback();
-      });
-    } else {
-      selectFallback();
-    }
-    function selectFallback(){
-      var range = document.createRange();
-      range.selectNodeContents(emailEl);
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-      done();
-    }
+      }
+    });
   });
 })();
 </script>
