@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BTE</title>
-<meta name="description" content="Reverse engineer & backend developer from France — game preservation, protocol reconstruction, binary patching.">
+<meta name="description" content="Reverse engineer & backend developer from France: game preservation, protocol reconstruction, binary patching.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -343,9 +343,9 @@ footer{
   <main>
     <section class="section hero" id="hero">
       <div class="eyebrow"><span class="num">§00</span><span>Intro</span><span class="rule"></span></div>
-      <h1>I keep dead games running&nbsp;— one decompiled binary at a time.</h1>
-      <p class="role mono">Reverse engineer & backend developer — France</p>
-      <p class="lede">I'm a French developer who spends free time on the games whose servers studios switched off. When the backend goes dark, I decompile the client to figure out exactly what it still expects, then rebuild that backend from nothing — and when the client itself is missing a feature or a fix, I patch its compiled bytecode directly rather than wait for a source that doesn't exist anymore.</p>
+      <h1>I keep dead games running, one decompiled binary at a time.</h1>
+      <p class="role mono">Reverse engineer & backend developer, France</p>
+      <p class="lede">I'm a French developer who spends free time on the games whose servers studios switched off. When the backend goes dark, I decompile the client to figure out exactly what it still expects, then rebuild that backend from nothing. And when the client itself is missing a feature or a fix, I patch its compiled bytecode directly instead of waiting for a source that doesn't exist anymore.</p>
 
       <div class="stat-row">
         <div class="stat"><div class="n mono">160+</div><div class="l">endpoints reverse-engineered</div></div>
@@ -368,37 +368,37 @@ footer{
         <article class="project">
           <div class="project-head">
             <h3>Server revival & binary patching</h3>
-            <div class="project-meta mono">2026 — ONGOING</div>
+            <div class="project-meta mono">2026 · ONGOING</div>
           </div>
-          <p>The original C# server source for this mobile racer had been permanently deleted. I rebuilt it from zero by decompiling the production binary, got it compiling cleanly, and verified it byte-for-byte against the original with a differential test across dozens of live requests. From there I kept extending it — tournaments, a versus mode, a custom UDP broadcast protocol so the app finds the server on any network without touching a phone's DNS — and patched the Android client's compiled bytecode directly (IL rewriting) to restore development tooling the shipped build had stripped out, and to add a full in-game localization system the original never had.</p>
+          <p>The original C# server source for this mobile racer had been permanently deleted. I rebuilt it from zero by decompiling the production binary, got it compiling cleanly, and verified it byte-for-byte against the original with a differential test across dozens of live requests. From there I kept extending it: tournaments, a versus mode, and a custom UDP broadcast protocol so the app finds the server on any network without touching a phone's DNS. I also patched the Android client's compiled bytecode directly (IL rewriting) to restore development tooling the shipped build had stripped out, and to add a full in-game localization system the original never had.</p>
           <div class="tag-row">
             <span class="tag">C# / .NET</span><span class="tag">SQLite</span><span class="tag">IL patching</span><span class="tag">Android</span><span class="tag">Decompilation</span>
           </div>
           <div class="project-links">
-            <span class="inert">Source — private</span>
+            <span class="inert">Source: private</span>
           </div>
         </article>
 
         <article class="project">
           <div class="project-head">
             <h3>Dead backend, reimplemented</h3>
-            <div class="project-meta mono">2026 — PYTHON SERVER</div>
+            <div class="project-meta mono">2026 · PYTHON SERVER</div>
           </div>
-          <p>When a mobile game's backend shuts down, the client doesn't stop calling it — it just gets silence back. I audited every one of its ~160 endpoints straight from the decompiled client to work out which ones actually mattered (several turned out to be dead code the client never calls), then rebuilt a matching server in Python and SQLite covering login, teams, tournaments, ghost replays and level publishing. A small desktop admin panel on top lets me manage players and levels while it's running.</p>
+          <p>When a mobile game's backend shuts down, the client doesn't stop calling it. It just gets silence back. I audited every one of its ~160 endpoints straight from the decompiled client to work out which ones actually mattered (several turned out to be dead code the client never calls), then rebuilt a matching server in Python and SQLite covering login, teams, tournaments, ghost replays and level publishing. A small desktop admin panel on top lets me manage players and levels while it's running.</p>
           <div class="tag-row">
             <span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Reverse engineering</span><span class="tag">REST API</span>
           </div>
           <div class="project-links">
-            <span class="inert">Source — private</span>
+            <span class="inert">Source: private</span>
           </div>
         </article>
 
         <article class="project">
           <div class="project-head">
             <h3>Reviving a 2018 Unity build for iOS</h3>
-            <div class="project-meta mono">2026 — iOS PORT</div>
+            <div class="project-meta mono">2026 · iOS PORT</div>
           </div>
-          <p>Cross-compiled an old Unity build to run natively on iOS and chased a crash that only showed up on 64-bit devices: the physics engine assumed a point was always double-precision, and arm64's calling convention broke that assumption and corrupted the vector math under the hood. Fixed the ABI mismatch, then hit a separate wall getting the result to install at all — solved by splitting the universal binary into two architecture-specific IPAs so each one could be signed for sideloading.</p>
+          <p>Cross-compiled an old Unity build to run natively on iOS and chased a crash that only showed up on 64-bit devices: the physics engine assumed a point was always double-precision, and arm64's calling convention broke that assumption and corrupted the vector math under the hood. Fixed the ABI mismatch, then hit a separate wall getting the result to install at all, solved by splitting the universal binary into two architecture-specific IPAs so each one could be signed for sideloading.</p>
           <div class="tag-row">
             <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">C</span><span class="tag">Physics engine</span>
           </div>
@@ -439,7 +439,7 @@ footer{
       <h2 style="font-size:1.75rem">Recent history</h2>
       <div class="timeline">
         <div class="tl-item">
-          <div class="tl-date mono">2026 — ONGOING</div>
+          <div class="tl-date mono">2026 · ONGOING</div>
           <div class="tl-body">
             <h3>Server revival & binary patching</h3>
             <div class="org">C# server + Android client, patch #71 and counting</div>
@@ -447,7 +447,7 @@ footer{
           </div>
         </div>
         <div class="tl-item">
-          <div class="tl-date mono">2026 — iOS</div>
+          <div class="tl-date mono">2026 · iOS</div>
           <div class="tl-body">
             <h3>Reviving a 2018 Unity build for iOS</h3>
             <div class="org">Cross-platform port</div>
@@ -455,7 +455,7 @@ footer{
           </div>
         </div>
         <div class="tl-item">
-          <div class="tl-date mono">2026 — PYTHON</div>
+          <div class="tl-date mono">2026 · PYTHON</div>
           <div class="tl-body">
             <h3>Dead backend, reimplemented</h3>
             <div class="org">Reverse-engineered REST API</div>
@@ -468,12 +468,12 @@ footer{
     <section class="section" id="contact">
       <div class="eyebrow"><span class="num">§04</span><span>Contact</span><span class="rule"></span></div>
       <h2 style="font-size:1.75rem">Let's talk</h2>
-      <p class="lede" style="margin-top:14px">Email is the most reliable way to reach me.</p>
+      <p class="lede" style="margin-top:14px">Discord is the easiest way to reach me.</p>
       <div class="contact-grid">
         <div class="contact-row">
           <div>
-            <div class="label">Email</div>
-            <div class="value" id="email-value">wickerbaptiste@gmail.com</div>
+            <div class="label">Discord</div>
+            <div class="value" id="email-value">baptistewi92</div>
           </div>
           <button class="copy-btn" id="copy-email" type="button">Copy</button>
         </div>
@@ -488,7 +488,7 @@ footer{
 
     <footer>
       <div class="mono">© 2026 BTE</div>
-      <div class="mono">No servers were harmed in the making of this page — plenty were resurrected</div>
+      <div class="mono">No servers were harmed in the making of this page. Plenty were resurrected.</div>
     </footer>
   </main>
 </div>
