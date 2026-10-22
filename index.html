@@ -321,34 +321,6 @@ footer{
       <div class="project-grid">
         <article class="project">
           <div class="project-head">
-            <h3>Server revival & binary patching</h3>
-            <div class="project-meta mono">2026 · ONGOING</div>
-          </div>
-          <p>The original C# server source for this mobile racer had been permanently deleted. Working from an already-decompiled copy of the production binary, I rebuilt it from zero, got it compiling cleanly, and verified it byte-for-byte against the original with a differential test across dozens of live requests. From there I kept extending it: tournaments, a versus mode, and a custom UDP broadcast protocol so the app finds the server on any network without touching a phone's DNS. I also patched the Android client's compiled bytecode directly (IL rewriting) to restore development tooling the shipped build had stripped out, and to add a full in-game localization system the original never had.</p>
-          <div class="tag-row">
-            <span class="tag">C# / .NET</span><span class="tag">SQLite</span><span class="tag">IL patching</span><span class="tag">Android</span><span class="tag">Protocol reconstruction</span>
-          </div>
-          <div class="project-links">
-            <span class="inert">Source: private</span>
-          </div>
-        </article>
-
-        <article class="project">
-          <div class="project-head">
-            <h3>Dead backend, reimplemented</h3>
-            <div class="project-meta mono">2026 · PYTHON SERVER</div>
-          </div>
-          <p>When a mobile game's backend shuts down, the client doesn't stop calling it. It just gets silence back. Working from an already-decompiled copy of the client, I worked out which of its ~160 endpoints actually mattered (several turned out to be dead code the client never calls), then rebuilt a matching server in Python and SQLite covering login, teams, tournaments, ghost replays and level publishing. A small desktop admin panel on top lets me manage players and levels while it's running.</p>
-          <div class="tag-row">
-            <span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Protocol reconstruction</span><span class="tag">REST API</span>
-          </div>
-          <div class="project-links">
-            <span class="inert">Source: private</span>
-          </div>
-        </article>
-
-        <article class="project">
-          <div class="project-head">
             <h3>What On Earth — offline revival</h3>
             <div class="project-meta mono">2026 · SERVER + 3 PLATFORMS</div>
           </div>
