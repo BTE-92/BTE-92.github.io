@@ -24,7 +24,8 @@
 }
 
 *{ box-sizing:border-box; }
-html{ background:var(--bg); }
+html{ background:var(--bg); scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 body{
   margin:0;
   background:var(--bg);
@@ -51,7 +52,7 @@ button{ font-family:inherit; }
 
 .shell{
   display:grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 280px 1fr;
   max-width:1180px;
   margin:0 auto;
 }
@@ -65,10 +66,10 @@ button{ font-family:inherit; }
   top:0;
   align-self:start;
   height:100vh;
-  padding: 32px 0 32px max(28px, env(safe-area-inset-left,0px));
+  padding: 32px max(28px, env(safe-area-inset-left,0px)) 32px max(36px, env(safe-area-inset-left,0px));
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:center;
   border-right:1px solid var(--line);
 }
 @media (max-width: 860px){
@@ -83,34 +84,35 @@ button{ font-family:inherit; }
     border-bottom:1px solid var(--line);
   }
 }
-.rail-top{ display:flex; flex-direction:column; gap:28px; }
+.rail-top{ display:flex; flex-direction:column; gap:52px; }
 @media (max-width:860px){ .rail-top{ flex-direction:row; align-items:center; gap:20px; } }
 
 .mark{
   font-weight:500;
-  font-size:0.95rem;
+  font-size:1.15rem;
   letter-spacing:0.04em;
 }
 .mark span{ color:var(--accent); }
 .mark small{
   display:block;
   font-family:'IBM Plex Mono';
-  font-size:0.62rem;
+  font-size:0.7rem;
   color:var(--muted);
   letter-spacing:0.03em;
-  margin-top:4px;
+  margin-top:6px;
   font-weight:400;
 }
 @media (max-width:860px){ .mark small{ display:none; } }
 
-.index-nav{ display:flex; flex-direction:column; gap:10px; font-size:0.8rem; }
+.index-nav{ display:flex; flex-direction:column; gap:22px; font-size:1.05rem; }
 @media (max-width:860px){ .index-nav{ display:none; } }
 .index-nav a{
   color:var(--muted);
-  display:flex; gap:10px; align-items:baseline;
+  display:flex; gap:14px; align-items:baseline;
+  font-weight:500;
 }
 .index-nav a:hover{ color:var(--accent); text-decoration:none; }
-.index-nav .num{ color:var(--accent); }
+.index-nav .num{ color:var(--accent); font-size:0.85rem; }
 
 /* ---- main column ---- */
 main{ padding: 0 max(24px, env(safe-area-inset-right,0px)) 80px max(0px); }
