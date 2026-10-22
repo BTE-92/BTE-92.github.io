@@ -111,20 +111,24 @@ button{ font-family:inherit; }
 @media (max-width:860px){ .rail-top{ flex-direction:row; align-items:center; gap:20px; } }
 
 .mark{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  column-gap:7px;
+  row-gap:4px;
   font-weight:500;
   font-size:1.3rem;
   letter-spacing:0.04em;
 }
-.mark span{ color:var(--accent); }
-.mark small{
-  display:block;
+.mark .us{ color:var(--accent); }
+.mark .tagline{
   font-family:'IBM Plex Mono';
   font-size:0.78rem;
   color:var(--muted);
   letter-spacing:0.03em;
-  margin-top:8px;
   font-weight:400;
 }
+.mark .tagline b{ color:var(--accent); font-weight:inherit; }
 
 .index-nav{ display:flex; flex-direction:column; gap:38px; font-size:1.55rem; }
 @media (max-width:860px){ .index-nav{ display:none; } }
@@ -311,7 +315,7 @@ footer{
 <div class="shell">
   <aside class="rail">
     <div class="rail-top">
-      <div class="mark">BTE<span>_</span><small data-en="Build, Test, Execute" data-fr="Build, Test, Execute">Build, Test, Execute</small></div>
+      <div class="mark">BTE<span class="us">_</span><span class="tagline">: <b>B</b>uild, <b>T</b>est, <b>E</b>xecute</span></div>
       <nav class="index-nav">
         <a href="#hero"><span class="num mono">§00</span> <span data-en="Intro" data-fr="Intro">Intro</span></a>
         <a href="#work"><span class="num mono">§01</span> <span data-en="Projects" data-fr="Projets">Projects</span></a>
