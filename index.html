@@ -50,6 +50,29 @@ a:focus-visible, button:focus-visible, .copy-btn:focus-visible{
 }
 button{ font-family:inherit; }
 
+/* language switcher, fixed top-right, independent of the rail layout */
+.lang-toggle{
+  position:fixed;
+  top:calc(16px + env(safe-area-inset-top,0px));
+  right:calc(16px + env(safe-area-inset-right,0px));
+  z-index:30;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--muted);
+  border-radius:999px;
+  padding:5px;
+  display:inline-flex;
+  gap:2px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.35);
+}
+.lang-toggle button{
+  border:none; background:transparent; color:inherit;
+  font-size:0.7rem; letter-spacing:0.05em;
+  padding:6px 13px; border-radius:999px; cursor:pointer;
+  font-family:'IBM Plex Mono';
+}
+.lang-toggle button[aria-pressed="true"]{ background:var(--accent); color:var(--accent-fg); }
+
 .shell{
   display:grid;
   grid-template-columns: 280px 1fr;
@@ -281,52 +304,57 @@ footer{
 </head>
 <body>
 
+<div class="lang-toggle" role="group" aria-label="Language / Langue">
+  <button type="button" id="lang-en" aria-pressed="true">EN</button>
+  <button type="button" id="lang-fr" aria-pressed="false">FR</button>
+</div>
+
 <div class="shell">
   <aside class="rail">
     <div class="rail-top">
-      <div class="mark">BTE<span>_</span><small>Backend developer, France</small></div>
+      <div class="mark">BTE<span>_</span><small data-en="Backend developer, France" data-fr="Développeur backend, France">Backend developer, France</small></div>
       <nav class="index-nav">
-        <a href="#hero"><span class="num mono">§00</span> Intro</a>
-        <a href="#work"><span class="num mono">§01</span> Projects</a>
-        <a href="#skills"><span class="num mono">§02</span> Skills</a>
-        <a href="#timeline"><span class="num mono">§03</span> Build log</a>
-        <a href="#contact"><span class="num mono">§04</span> Contact</a>
+        <a href="#hero"><span class="num mono">§00</span> <span data-en="Intro" data-fr="Intro">Intro</span></a>
+        <a href="#work"><span class="num mono">§01</span> <span data-en="Projects" data-fr="Projets">Projects</span></a>
+        <a href="#skills"><span class="num mono">§02</span> <span data-en="Skills" data-fr="Compétences">Skills</span></a>
+        <a href="#timeline"><span class="num mono">§03</span> <span data-en="Build log" data-fr="Journal de bord">Build log</span></a>
+        <a href="#contact"><span class="num mono">§04</span> <span data-en="Contact" data-fr="Contact">Contact</span></a>
       </nav>
     </div>
   </aside>
 
   <main>
     <section class="section hero" id="hero">
-      <div class="eyebrow"><span class="num">§00</span><span>Intro</span><span class="rule"></span></div>
-      <h1>I keep dead games running, one rebuilt server and one patch at a time.</h1>
-      <p class="role mono">Backend developer & binary patcher, France</p>
-      <p class="lede">I'm a French developer who spends free time on the games whose servers studios switched off. I work from binaries that are already decompiled to rebuild the missing server from scratch, matching exactly what the client expects. And when the client itself needs a fix or a feature it never had, I patch its compiled bytecode directly, or build a working iOS version with Xcode when none exists.</p>
+      <div class="eyebrow"><span class="num">§00</span><span data-en="Intro" data-fr="Intro">Intro</span><span class="rule"></span></div>
+      <h1 data-en="I keep dead games running, one rebuilt server and one patch at a time." data-fr="Je fais tourner des jeux morts, un serveur reconstruit et un patch à la fois.">I keep dead games running, one rebuilt server and one patch at a time.</h1>
+      <p class="role mono" data-en="Backend developer &amp; binary patcher, France" data-fr="Développeur backend et patcheur de binaires, France">Backend developer &amp; binary patcher, France</p>
+      <p class="lede" data-en="I'm a French developer who spends free time on the games whose servers studios switched off. I work from binaries that are already decompiled to rebuild the missing server from scratch, matching exactly what the client expects. And when the client itself needs a fix or a feature it never had, I patch its compiled bytecode directly, or build a working iOS version with Xcode when none exists." data-fr="Je suis développeur français et je passe mon temps libre sur des jeux dont les studios ont coupé les serveurs. Je travaille à partir de binaires déjà décompilés pour reconstruire le serveur manquant à partir de zéro, en respectant exactement ce que le client attend. Et quand le client lui-même a besoin d'un correctif ou d'une fonctionnalité qui n'a jamais existé, je patche directement son bytecode compilé, ou je recompile une version iOS avec Xcode quand il n'en existe aucune.">I'm a French developer who spends free time on the games whose servers studios switched off. I work from binaries that are already decompiled to rebuild the missing server from scratch, matching exactly what the client expects. And when the client itself needs a fix or a feature it never had, I patch its compiled bytecode directly, or build a working iOS version with Xcode when none exists.</p>
 
       <div class="stat-row">
-        <div class="stat"><div class="n mono">160+</div><div class="l">endpoints implemented</div></div>
-        <div class="stat"><div class="n mono">3</div><div class="l">platforms revived (iOS, Android & PC)</div></div>
+        <div class="stat"><div class="n mono">160+</div><div class="l" data-en="endpoints implemented" data-fr="endpoints implémentés">endpoints implemented</div></div>
+        <div class="stat"><div class="n mono">3</div><div class="l" data-en="platforms revived (iOS, Android & PC)" data-fr="plateformes relancées (iOS, Android et PC)">platforms revived (iOS, Android &amp; PC)</div></div>
       </div>
 
       <div class="cta-row">
-        <a class="btn primary" href="#work">See the projects</a>
-        <a class="btn ghost" href="#contact">Get in touch</a>
+        <a class="btn primary" href="#work" data-en="See the projects" data-fr="Voir les projets">See the projects</a>
+        <a class="btn ghost" href="#contact" data-en="Get in touch" data-fr="Me contacter">Get in touch</a>
       </div>
-      <div class="status-pill"><span class="dot"></span> Currently on patch #71+ of the BBR 2.4.9 Android client</div>
+      <div class="status-pill"><span class="dot"></span> <span data-en="Currently on patch #71+ of the BBR 2.4.9 Android client" data-fr="Actuellement sur le patch #71+ du client Android de BBR 2.4.9">Currently on patch #71+ of the BBR 2.4.9 Android client</span></div>
     </section>
 
     <section class="section" id="work">
-      <div class="eyebrow"><span class="num">§01</span><span>Selected work</span><span class="rule"></span></div>
-      <h2 style="font-size:1.75rem">What I've been rebuilding</h2>
+      <div class="eyebrow"><span class="num">§01</span><span data-en="Selected work" data-fr="Projets sélectionnés">Selected work</span><span class="rule"></span></div>
+      <h2 style="font-size:1.75rem" data-en="What I've been rebuilding" data-fr="Ce que je reconstruis">What I've been rebuilding</h2>
 
       <div class="project-grid">
         <article class="project">
           <div class="project-head">
             <h3>What On Earth Offline</h3>
-            <div class="project-meta mono">2026 · OFFLINE PATCH + 3 PLATFORMS</div>
+            <div class="project-meta mono" data-en="2026 · OFFLINE PATCH + 3 PLATFORMS" data-fr="2026 · PATCH HORS LIGNE + 3 PLATEFORMES">2026 · OFFLINE PATCH + 3 PLATFORMS</div>
           </div>
-          <p>What On Earth is the very first version of Big Bang Racing, long pulled from the app stores. I built the server it talks to from scratch, then put together a fully offline build that needs no server at all, playable on Android, iOS and PC. The iOS leg was its own fight: cross-compiling a 2018 Unity project and chasing a crash that only showed up on 64-bit devices, where the physics engine's assumption that a point was always double-precision broke under arm64's calling convention. Fixed that, then solved a separate code-signing wall by splitting the universal binary into two architecture-specific IPAs.</p>
+          <p data-en="What On Earth is the very first version of Big Bang Racing, long pulled from the app stores. I built the server it talks to from scratch, then put together a fully offline build that needs no server at all, playable on Android, iOS and PC. The iOS leg was its own fight: cross-compiling a 2018 Unity project and chasing a crash that only showed up on 64-bit devices, where the physics engine's assumption that a point was always double-precision broke under arm64's calling convention. Fixed that, then solved a separate code-signing wall by splitting the universal binary into two architecture-specific IPAs." data-fr="What On Earth est la toute première version de Big Bang Racing, retirée des stores depuis longtemps. J'ai construit le serveur auquel il parle, à partir de zéro, puis monté une version complètement hors ligne qui n'a besoin d'aucun serveur, jouable sur Android, iOS et PC. La partie iOS a été un vrai combat : compilation croisée d'un projet Unity de 2018, avec un crash qui n'apparaissait que sur les appareils 64 bits, où l'hypothèse du moteur physique selon laquelle un point était toujours en double précision cassait sous la convention d'appel d'arm64. J'ai corrigé ça, puis résolu un blocage de signature de code séparé en scindant le binaire universel en deux IPA spécifiques à chaque architecture.">What On Earth is the very first version of Big Bang Racing, long pulled from the app stores. I built the server it talks to from scratch, then put together a fully offline build that needs no server at all, playable on Android, iOS and PC. The iOS leg was its own fight: cross-compiling a 2018 Unity project and chasing a crash that only showed up on 64-bit devices, where the physics engine's assumption that a point was always double-precision broke under arm64's calling convention. Fixed that, then solved a separate code-signing wall by splitting the universal binary into two architecture-specific IPAs.</p>
           <div class="tag-row">
-            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">Android</span><span class="tag">Server engineering</span><span class="tag">C</span>
+            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">Android</span><span class="tag" data-en="Server engineering" data-fr="Ingénierie serveur">Server engineering</span><span class="tag">C</span>
           </div>
           <div class="project-links">
             <a href="https://github.com/BTE-92/WOE-Offline" target="_blank" rel="noopener">github.com/BTE-92/WOE-Offline</a>
@@ -336,114 +364,141 @@ footer{
         <article class="project">
           <div class="project-head">
             <h3>BBRo (Big Bang Racing Offline) — iOS</h3>
-            <div class="project-meta mono">2026 · iOS PORT</div>
+            <div class="project-meta mono" data-en="2026 · iOS PORT" data-fr="2026 · PORTAGE iOS">2026 · iOS PORT</div>
           </div>
-          <p>BBRo is a community-made offline mod of this mobile racer, originally built for Android and Windows only. I ported it to iOS: compiled it through Xcode, patched the same native physics plugin that needed fixing on the other iOS port, and shipped it as signed 32-bit and 64-bit IPAs ready to sideload.</p>
+          <p data-en="BBRo is a community-made offline mod of this mobile racer, originally built for Android and Windows only. I ported it to iOS: compiled it through Xcode, patched the same native physics plugin that needed fixing on the other iOS port, and shipped it as signed 32-bit and 64-bit IPAs ready to sideload." data-fr="BBRo est un mod communautaire hors ligne de ce jeu de course mobile, à l'origine conçu uniquement pour Android et Windows. Je l'ai porté sur iOS : compilé via Xcode, patché le même plugin physique natif qu'il avait fallu corriger sur l'autre portage iOS, et livré sous forme d'IPA signés en 32 bits et 64 bits, prêts pour le sideload.">BBRo is a community-made offline mod of this mobile racer, originally built for Android and Windows only. I ported it to iOS: compiled it through Xcode, patched the same native physics plugin that needed fixing on the other iOS port, and shipped it as signed 32-bit and 64-bit IPAs ready to sideload.</p>
           <div class="tag-row">
-            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">C</span><span class="tag">Chipmunk Physics</span>
+            <span class="tag">Unity</span><span class="tag">iOS / Xcode</span><span class="tag">C</span><span class="tag" data-en="Chipmunk Physics" data-fr="Moteur physique Chipmunk">Chipmunk Physics</span>
           </div>
         </article>
       </div>
     </section>
 
     <section class="section" id="skills">
-      <div class="eyebrow"><span class="num">§02</span><span>Skills</span><span class="rule"></span></div>
-      <h2 style="font-size:1.75rem">Toolbox</h2>
+      <div class="eyebrow"><span class="num">§02</span><span data-en="Skills" data-fr="Compétences">Skills</span><span class="rule"></span></div>
+      <h2 style="font-size:1.75rem" data-en="Toolbox" data-fr="Boîte à outils">Toolbox</h2>
       <div class="skill-cols">
         <div class="skill-col">
-          <h4>Server engineering</h4>
-          <div class="skill"><span class="name">Protocol reconstruction</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
-          <div class="skill"><span class="name">C# / .NET</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
-          <div class="skill"><span class="name">Python</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:86%"></i></span></div>
+          <h4 data-en="Server engineering" data-fr="Ingénierie serveur">Server engineering</h4>
+          <div class="skill"><span class="name" data-en="Protocol reconstruction" data-fr="Reconstruction de protocole">Protocol reconstruction</span><span class="lvl mono" data-en="daily driver" data-fr="quotidien">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
+          <div class="skill"><span class="name">C# / .NET</span><span class="lvl mono" data-en="daily driver" data-fr="quotidien">daily driver</span><span class="bar"><i style="width:88%"></i></span></div>
+          <div class="skill"><span class="name">Python</span><span class="lvl mono" data-en="daily driver" data-fr="quotidien">daily driver</span><span class="bar"><i style="width:86%"></i></span></div>
         </div>
         <div class="skill-col">
-          <h4>Cross-platform builds</h4>
-          <div class="skill"><span class="name">Unity & Xcode builds</span><span class="lvl mono">daily driver</span><span class="bar"><i style="width:80%"></i></span></div>
-          <div class="skill"><span class="name">Unity asset editing</span><span class="lvl mono">comfortable</span><span class="bar"><i style="width:65%"></i></span></div>
+          <h4 data-en="Cross-platform builds" data-fr="Builds multiplateformes">Cross-platform builds</h4>
+          <div class="skill"><span class="name" data-en="Unity &amp; Xcode builds" data-fr="Builds Unity et Xcode">Unity &amp; Xcode builds</span><span class="lvl mono" data-en="daily driver" data-fr="quotidien">daily driver</span><span class="bar"><i style="width:80%"></i></span></div>
+          <div class="skill"><span class="name" data-en="Unity asset editing" data-fr="Édition d'assets Unity">Unity asset editing</span><span class="lvl mono" data-en="comfortable" data-fr="à l'aise">comfortable</span><span class="bar"><i style="width:65%"></i></span></div>
         </div>
       </div>
     </section>
 
     <section class="section" id="timeline">
-      <div class="eyebrow"><span class="num">§03</span><span>Build log</span><span class="rule"></span></div>
-      <h2 style="font-size:1.75rem">Recent history</h2>
+      <div class="eyebrow"><span class="num">§03</span><span data-en="Build log" data-fr="Journal de bord">Build log</span><span class="rule"></span></div>
+      <h2 style="font-size:1.75rem" data-en="Recent history" data-fr="Historique récent">Recent history</h2>
       <div class="timeline">
         <div class="tl-item">
-          <div class="tl-date mono">2026 · ONGOING</div>
+          <div class="tl-date mono" data-en="2026 · ONGOING" data-fr="2026 · EN COURS">2026 · ONGOING</div>
           <div class="tl-body">
-            <h3>Server revival & binary patching</h3>
-            <div class="org">C# server + Android client, patch #71 and counting</div>
-            <p>Still extending the C# server (tournaments, versus mode, LAN auto-discovery) and patching the Android client's bytecode to restore tooling and add a full localization layer.</p>
+            <h3 data-en="Server revival &amp; binary patching" data-fr="Relance de serveur et patch binaire">Server revival &amp; binary patching</h3>
+            <div class="org" data-en="C# server + Android client, patch #71 and counting" data-fr="Serveur C# + client Android, patch #71 et ça continue">C# server + Android client, patch #71 and counting</div>
+            <p data-en="Still extending the C# server (tournaments, versus mode, LAN auto-discovery) and patching the Android client's bytecode to restore tooling and add a full localization layer." data-fr="Je continue d'étoffer le serveur C# (tournois, mode versus, découverte LAN automatique) et je patche le bytecode du client Android pour restaurer des outils et ajouter une couche de traduction complète.">Still extending the C# server (tournaments, versus mode, LAN auto-discovery) and patching the Android client's bytecode to restore tooling and add a full localization layer.</p>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-date mono">2026 · WOE</div>
           <div class="tl-body">
             <h3>What On Earth Offline</h3>
-            <div class="org">Server + Android, iOS & PC builds</div>
-            <p>Built the server from scratch and shipped a fully offline build running on three platforms. Fixed a physics-engine ABI crash on 64-bit iOS devices and a code-signing dead end by splitting the binary in two.</p>
+            <div class="org" data-en="Server + Android, iOS & PC builds" data-fr="Serveur + builds Android, iOS et PC">Server + Android, iOS &amp; PC builds</div>
+            <p data-en="Built the server from scratch and shipped a fully offline build running on three platforms. Fixed a physics-engine ABI crash on 64-bit iOS devices and a code-signing dead end by splitting the binary in two." data-fr="Serveur construit à partir de zéro, et version complètement hors ligne livrée sur trois plateformes. Correction d'un crash d'ABI du moteur physique sur iOS 64 bits et d'un blocage de signature en scindant le binaire en deux.">Built the server from scratch and shipped a fully offline build running on three platforms. Fixed a physics-engine ABI crash on 64-bit iOS devices and a code-signing dead end by splitting the binary in two.</p>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-date mono">2026 · iOS</div>
           <div class="tl-body">
             <h3>BBRo (Big Bang Racing Offline) — iOS</h3>
-            <div class="org">Cross-platform port</div>
-            <p>Ported a community Android and Windows offline mod to iOS through Xcode, with a native physics-plugin patch and signed 32-bit and 64-bit IPAs.</p>
+            <div class="org" data-en="Cross-platform port" data-fr="Portage multiplateforme">Cross-platform port</div>
+            <p data-en="Ported a community Android and Windows offline mod to iOS through Xcode, with a native physics-plugin patch and signed 32-bit and 64-bit IPAs." data-fr="Portage d'un mod communautaire Android et Windows vers iOS via Xcode, avec un patch du plugin physique natif et des IPA signés en 32 bits et 64 bits.">Ported a community Android and Windows offline mod to iOS through Xcode, with a native physics-plugin patch and signed 32-bit and 64-bit IPAs.</p>
           </div>
         </div>
         <div class="tl-item">
           <div class="tl-date mono">2026 · PYTHON</div>
           <div class="tl-body">
-            <h3>Dead backend, reimplemented</h3>
-            <div class="org">Reconstructed REST API</div>
-            <p>Reconstructed a shut-down mobile game's full backend from an already-decompiled client and shipped a small admin GUI to run it.</p>
+            <h3 data-en="Dead backend, reimplemented" data-fr="Serveur mort, réimplémenté">Dead backend, reimplemented</h3>
+            <div class="org" data-en="Reconstructed REST API" data-fr="API REST reconstruite">Reconstructed REST API</div>
+            <p data-en="Reconstructed a shut-down mobile game's full backend from an already-decompiled client and shipped a small admin GUI to run it." data-fr="Backend complet d'un jeu mobile à l'arrêt reconstruit à partir d'un client déjà décompilé, avec un petit outil d'administration graphique.">Reconstructed a shut-down mobile game's full backend from an already-decompiled client and shipped a small admin GUI to run it.</p>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="contact">
-      <div class="eyebrow"><span class="num">§04</span><span>Contact</span><span class="rule"></span></div>
-      <h2 style="font-size:1.75rem">Let's talk</h2>
-      <p class="lede" style="margin-top:14px">Discord is the easiest way to reach me.</p>
+      <div class="eyebrow"><span class="num">§04</span><span data-en="Contact" data-fr="Contact">Contact</span><span class="rule"></span></div>
+      <h2 style="font-size:1.75rem" data-en="Let's talk" data-fr="On en parle ?">Let's talk</h2>
+      <p class="lede" style="margin-top:14px" data-en="Discord is the easiest way to reach me." data-fr="Discord est le moyen le plus simple de me joindre.">Discord is the easiest way to reach me.</p>
       <div class="contact-grid">
         <div class="contact-row">
           <div>
             <div class="label">Discord</div>
             <div class="value" id="discord-value">baptistewi92</div>
           </div>
-          <button class="copy-btn" data-copy-target="discord-value" type="button">Copy</button>
+          <button class="copy-btn" data-copy-target="discord-value" type="button" data-en="Copy" data-fr="Copier">Copy</button>
         </div>
         <div class="contact-row">
           <div>
             <div class="label">GitHub</div>
             <div class="value" id="github-value">github.com/BTE-92</div>
           </div>
-          <button class="copy-btn" data-copy-target="github-value" type="button">Copy</button>
+          <button class="copy-btn" data-copy-target="github-value" type="button" data-en="Copy" data-fr="Copier">Copy</button>
         </div>
       </div>
     </section>
 
     <footer>
       <div class="mono">© 2026 BTE</div>
-      <div class="mono">No servers were harmed in the making of this page. Plenty were resurrected.</div>
+      <div class="mono" data-en="No servers were harmed in the making of this page. Plenty were resurrected." data-fr="Aucun serveur n'a été maltraité pendant la fabrication de cette page. Beaucoup ont été ressuscités.">No servers were harmed in the making of this page. Plenty were resurrected.</div>
     </footer>
   </main>
 </div>
 
 <script>
 (function(){
+  var root = document.documentElement;
+  var LANG_KEY = 'portfolio-lang';
+  var currentLang = 'en';
+  var copyLabels = { en: 'Copy', fr: 'Copier' };
+  var copiedLabels = { en: 'Copied', fr: 'Copié' };
+  var btnEn = document.getElementById('lang-en');
+  var btnFr = document.getElementById('lang-fr');
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      var text = el.getAttribute('data-' + lang) || el.getAttribute('data-en');
+      el.textContent = text;
+    });
+    root.setAttribute('lang', lang);
+    if(btnEn) btnEn.setAttribute('aria-pressed', String(lang === 'en'));
+    if(btnFr) btnFr.setAttribute('aria-pressed', String(lang === 'fr'));
+    try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+  }
+
+  var saved = 'en';
+  try{ saved = localStorage.getItem(LANG_KEY) || 'en'; }catch(e){}
+  applyLang(saved);
+
+  if(btnEn) btnEn.addEventListener('click', function(){ applyLang('en'); });
+  if(btnFr) btnFr.addEventListener('click', function(){ applyLang('fr'); });
+
   document.querySelectorAll('.copy-btn[data-copy-target]').forEach(function(copyBtn){
     var valueEl = document.getElementById(copyBtn.getAttribute('data-copy-target'));
     if(!valueEl) return;
     copyBtn.addEventListener('click', function(){
       var text = valueEl.textContent;
       function done(){
-        copyBtn.textContent = 'Copied';
+        copyBtn.textContent = copiedLabels[currentLang];
         copyBtn.setAttribute('data-copied', 'true');
         setTimeout(function(){
-          copyBtn.textContent = 'Copy';
+          copyBtn.textContent = copyLabels[currentLang];
           copyBtn.removeAttribute('data-copied');
         }, 1800);
       }
